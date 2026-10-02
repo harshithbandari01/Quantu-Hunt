@@ -910,18 +910,17 @@
     letter-spacing: 0.25em;
     margin-bottom: 0.85rem;
   }
-  /* Force two intentional lines: QUANTUM / HUNT
-     Prevent browser breaking at arbitrary point */
+  /* ── Hero title: controlled, no arbitrary mid-word break ── */
   .heroTitle {
-    font-size: 2.75rem;   /* ~44px — readable but not dominant */
-    line-height: 1.0;
+    /* Smaller size that definitely fits at 360px */
+    font-size: 2.3rem;   /* ≈37px */
+    line-height: 1.05;
     letter-spacing: -0.01em;
-    /* Prevent any wrapping inside heroTitleLine spans */
-    word-break: keep-all;
-    overflow-wrap: normal;
   }
   .heroTitleLine {
-    /* Each line is explicitly a block — no mid-word break */
+    /* KEY FIX: override desktop overflow:hidden so QUANTUM is not clipped */
+    overflow: visible;
+    /* Ensure each word stays on its own line, never breaks mid-word */
     white-space: nowrap;
   }
   .heroSub {
@@ -984,10 +983,13 @@
     padding: 0.4rem 0.5rem;
   }
 
-  /* ── Scan CTA buttons ── */
+  /* ── Scan CTA buttons: use full scannerCol width, not constrained by scannerShell ── */
   .scanCta {
+    /* When inside scannerShell (active scanner), fill shell width.
+       When direct child of scannerCol (idle), fill the column width via align-self. */
     width: 100%;
-    max-width: calc(100vw - 2.5rem); /* 20px each side */
+    max-width: 280px;   /* comfortable within 360px minus side padding */
+    align-self: center; /* centres when scanCta is direct child of scannerCol */
     gap: 0.6rem;
   }
   .scanBtn {
@@ -1039,8 +1041,9 @@
 /* ── Narrow phones (360px and below) ── */
 @media (max-width: 400px) {
   .heroTitle {
-    font-size: 2.4rem;
+    font-size: 2.0rem;  /* 32px — fits QUANTUM comfortably at 360px */
   }
+
   .scannerOrbit {
     width: 210px;
     height: 210px;
