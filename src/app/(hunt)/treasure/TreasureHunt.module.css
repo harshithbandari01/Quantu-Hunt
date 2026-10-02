@@ -900,28 +900,29 @@
     min-width: 0;
   }
 
-  /* ── Hero: controlled title, no arbitrary wrapping ── */
+  /* ── Hero ── */
   .hero {
     padding: 1.75rem 1.25rem 1.25rem;
     text-align: center;
+    /* Remove desktop overflow:hidden — it clips QUANTUM at the hero boundary */
+    overflow: visible;
   }
   .heroEyebrow {
     font-size: 0.6rem;
     letter-spacing: 0.25em;
     margin-bottom: 0.85rem;
   }
-  /* ── Hero title: controlled, no arbitrary mid-word break ── */
+  /* ── Hero title ── */
   .heroTitle {
-    /* Smaller size that definitely fits at 360px */
-    font-size: 2.3rem;   /* ≈37px */
+    font-size: 2.3rem;  /* 36.8px — QUANTUM fits at 360px */
     line-height: 1.05;
     letter-spacing: -0.01em;
   }
   .heroTitleLine {
-    /* KEY FIX: override desktop overflow:hidden so QUANTUM is not clipped */
+    /* display:block already forces one word per line.
+       Remove overflow:hidden so the word is never clipped. */
     overflow: visible;
-    /* Ensure each word stays on its own line, never breaks mid-word */
-    white-space: nowrap;
+    white-space: normal;  /* allow natural rendering, no nowrap needed */
   }
   .heroSub {
     font-size: 0.8rem;
