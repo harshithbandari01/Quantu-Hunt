@@ -852,22 +852,227 @@
   box-shadow: 0 4px 24px var(--success-glow);
 }
 
-/* ── Responsive ── */
+/* ── Tablet (960px) ── */
 @media (max-width: 960px) {
+  .main {
+    grid-template-columns: 1fr;
+    max-width: 540px;
+    padding: 0 1.5rem 3rem;
+  }
+  .scannerCol { order: -1; }
   .scannerOrbit   { width: 280px; height: 280px; }
-  .scannerViewport{ width: 220px; height: 220px; }
-  .main           { padding: 0 1.25rem 3rem; }
+  .scannerViewport { width: 220px; height: 220px; }
+  .scannerShell   { width: 220px; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE RECOMPOSITION — 600px and below
+   Desktop visual language kept; composition rebuilt for touch.
+   ══════════════════════════════════════════════════════════════ */
 @media (max-width: 600px) {
-  .topBar    { padding: 1rem 1.25rem; }
-  .hero      { padding: 2.5rem 1.25rem 1.5rem; }
-  .progressBand { padding: 0 1.25rem; }
-  .scannerOrbit   { width: 260px; height: 260px; }
-  .scannerViewport{ width: 200px; height: 200px; }
-  .node      { width: 28px; height: 28px; border-radius: 6px; }
-  .nodePsi   { font-size: 0.65rem; }
-  .nodeChar  { font-size: 0.85rem; }
+
+  /* ── Page shell ── */
+  .page {
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  /* ── Top bar: compact brand + one status line ── */
+  .topBar {
+    padding: 0.85rem 1.25rem;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .topBarBrand {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .topBarMeta {
+    font-size: 0.56rem;
+    letter-spacing: 0.04em;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  /* ── Hero: controlled title, no arbitrary wrapping ── */
+  .hero {
+    padding: 1.75rem 1.25rem 1.25rem;
+    text-align: center;
+  }
+  .heroEyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    margin-bottom: 0.85rem;
+  }
+  /* Force two intentional lines: QUANTUM / HUNT
+     Prevent browser breaking at arbitrary point */
+  .heroTitle {
+    font-size: 2.75rem;   /* ~44px — readable but not dominant */
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    /* Prevent any wrapping inside heroTitleLine spans */
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+  .heroTitleLine {
+    /* Each line is explicitly a block — no mid-word break */
+    white-space: nowrap;
+  }
+  .heroSub {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    /* Force line breaks at natural points, not mid-word */
+    word-break: keep-all;
+  }
+
+  /* ── Progress band ── */
+  .progressBand {
+    padding: 0 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+  .progressLabel {
+    font-size: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Main grid: single column, scanner first ── */
+  .main {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0 1.25rem 3rem;
+    gap: 1.5rem;
+  }
+  .scannerCol { order: -1; }
+  .fragmentCol {
+    gap: 1.25rem;
+    padding-top: 0;
+  }
+
+  /* ── Scanner orbit: smaller so rings stay subtle ── */
+  .scannerOrbit {
+    width: 230px;
+    height: 230px;
+  }
+  /* Reduce tick transform-origin to match new orbit radius */
+  .orbitTick {
+    transform-origin: 0 115px;
+  }
+
+  /* ── Scanner viewport: square, fits 360px with margins ── */
+  .scannerViewport {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* ── Scanner shell (InlineScanner wrapper) ── */
+  .scannerShell {
+    width: 200px;
+    gap: 0.5rem;
+  }
+
+  /* ── Scanner status bar ── */
+  .scanStatus {
+    font-size: 0.58rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  /* ── Scan CTA buttons ── */
+  .scanCta {
+    width: 100%;
+    max-width: calc(100vw - 2.5rem); /* 20px each side */
+    gap: 0.6rem;
+  }
+  .scanBtn {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 0.7rem;
+    min-height: 44px;
+  }
+  .uploadLabel {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 0.6rem;
+    min-height: 40px;
+  }
+  .scanClose {
+    width: 100%;
+    padding: 0.55rem 1rem;
+    font-size: 0.6rem;
+    min-height: 40px;
+  }
+  .scanHint {
+    font-size: 0.52rem;
+    padding: 0 0.25rem;
+  }
+
+  /* Prevent orbitRingOuter from bleeding past screen edge */
+  .orbitRingOuter {
+    inset: -14px;
+  }
+  .node {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+  }
+  .nodePsi  { font-size: 0.65rem; }
+  .nodeChar { font-size: 0.85rem; }
+
+  /* ── Word cards: full width, compact padding ── */
+  .wordCard {
+    padding: 1rem 1rem 1.1rem;
+    border-radius: 10px;
+  }
+  .wordReveal {
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+  }
 }
+
+/* ── Narrow phones (360px and below) ── */
+@media (max-width: 400px) {
+  .heroTitle {
+    font-size: 2.4rem;
+  }
+  .scannerOrbit {
+    width: 210px;
+    height: 210px;
+  }
+  .orbitTick {
+    transform-origin: 0 105px;
+  }
+  .scannerViewport {
+    width: 185px;
+    height: 185px;
+  }
+  .scannerShell {
+    width: 185px;
+  }
+  /* Prevent any horizontal overflow from orbit ring borders */
+  .orbitRingOuter {
+    inset: -16px;
+  }
+  .topBar {
+    padding: 0.75rem 1rem;
+  }
+  .main {
+    padding: 0 1rem 2.5rem;
+  }
+  .progressBand {
+    padding: 0 1rem;
+  }
+  .hero {
+    padding: 1.5rem 1rem 1rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page * {
     animation-duration: 0.01ms !important;
